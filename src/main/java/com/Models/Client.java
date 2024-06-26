@@ -9,6 +9,8 @@ package com.Models;
  * @author macbookpro
  */
 public class Client {
+
+    private int id;
     private String noms;
     private String age;
     private String sexe;
@@ -16,8 +18,16 @@ public class Client {
 
     public Client() {
         super();
-    }    
-    
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNoms() {
         return noms;
     }
@@ -53,6 +63,6 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" + "noms=" + noms + ", age=" + age + ", sexe=" + sexe + ", email=" + email + '}';
-    }   
+    }
 
 }

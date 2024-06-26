@@ -15,37 +15,40 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import static java.lang.System.out;
-
+import java.util.HashMap;
 
 public class clientServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) {
         try {
-            
+
             String noms = req.getParameter("noms");
             String age = req.getParameter("age");
             String sexe = req.getParameter("sexe");
             String email = req.getParameter("email");
-           
+
             //System.out.println(noms +" " +age +" "+sexe +" "+email +" ");
-              
             Client user = new Client();
             user.setNoms(noms);
             user.setAge(age);
             user.setSexe(sexe);
             user.setEmail(email);
-            
+
             userDAO dao = new userDAO();
-            boolean f = dao.clientRegister(user);           
+            int id = dao.clientRegister(user);
             HttpSession sess = req.getSession();
-           
-            if (f) {               
-                sess.setAttribute("success", "Client register successfuly...");
-                response.sendRedirect("home.jsp");               
-            }else{                 
+            
+            HashMap<String, Object> clientInfo = new HashMap<>();
+            clientInfo.put("id_client", id);
+            clientInfo.put("message", "Client registered successfully...");
+            
+            if (id > 0 && !clientInfo.isEmpty()) {
+                sess.setAttribute("data", clientInfo);
+                response.sendRedirect("home.jsp");
+            } else {
                 sess.setAttribute("failed", "Client register failure...");
-                response.sendRedirect("register.jsp");              
+                response.sendRedirect("register.jsp");
             }
 
         } catch (IOException e) {
