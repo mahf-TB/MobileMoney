@@ -4,13 +4,15 @@
  */
 package com.Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author macbookpro
  */
 public class Retrait {
     private int id;
-    private String dateRet;
+    private Date dateRet;
     private int idtauxrec;
 
     public Retrait() {
@@ -26,11 +28,11 @@ public class Retrait {
         this.id = id;
     }
 
-    public String getDateRet() {
+    public Date getDateRet() {
         return dateRet;
     }
 
-    public void setDateRet(String dateRet) {
+    public void setDateRet(Date dateRet) {
         this.dateRet = dateRet;
     }
 

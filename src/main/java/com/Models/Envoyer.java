@@ -4,6 +4,8 @@
  */
 package com.Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author macbookpro
@@ -11,7 +13,7 @@ package com.Models;
 public class Envoyer {
     private int id;
     private boolean is_frais_retrait;
-    private String dateEnv;
+    private Date dateEnv;
     private int idtauxenv;
 
     public Envoyer() {
@@ -34,11 +36,11 @@ public class Envoyer {
         this.is_frais_retrait = is_frais_retrait;
     }
 
-    public String getDateEnv() {
+    public Date getDateEnv() {
         return dateEnv;
     }
 
-    public void setDateEnv(String dateEnv) {
+    public void setDateEnv(Date dateEnv) {
         this.dateEnv = dateEnv;
     }
 

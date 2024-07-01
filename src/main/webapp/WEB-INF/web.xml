@@ -24,6 +24,10 @@
         <servlet-name>DeleteTaux</servlet-name>
         <servlet-class>com.Servlet.DeleteTaux</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EnvoyerArgent</servlet-name>
+        <servlet-class>com.Servlet.EnvoyerArgent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>DeleteTaux</servlet-name>
         <url-pattern>/deleteTaux</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnvoyerArgent</servlet-name>
+        <url-pattern>/envoyerArgent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
