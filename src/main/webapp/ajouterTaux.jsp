@@ -8,7 +8,7 @@
         <title>Home Page - FlyMoney</title>
 
         <%@include file="Public/indexStyle.jsp" %>
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        
     </head>
     <body>
         <div class=" bg-gray-900 w-full min-h-screen text-slate-300 relative py-4">
@@ -18,30 +18,33 @@
                     <div class="lg:flex items-center space-x-16">
                         <div class="w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px]  bg-black/60 to-white/5 mt-8 mx-auto px-16 py-8 rounded-lg">
 
-                            <h2 class="text-center text-2xl font-bold tracking-wide text-slate-200">Taux d'envoyer de l'argent </h2>
-                            <p class="text-center text-sm text-gray-600 mt-2">Already have an account? <a href="#" class="text-blue-600 hover:text-blue-700 hover:underline" title="Sign In">Sign in here</a></p>
-
-                            <form class="my-8 text-sm">
+                            <h2 class="text-center text-2xl font-bold tracking-wide text-slate-200">Taux de transaction </h2>
+                            <form class="my-8 text-sm" action="tauxTrans" method="POST">
                                 <div class="flex flex-col my-4">
-                                    <label for="name" class="text-slate-400">Type</label>
-                                    <input type="text" name="name" id="name" class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant minimum">
+                                    <label for="name" class="text-slate-400">Quel type de transaction ?</label>
+                                    <select  name="type"         
+                                             class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+                                             placeholder="" >
+                                        <option disabled selected value="envoie" class="text-sm text-white">Selectionner ici</option>
+                                        <option value="envoie">Taux d'envoie</option>
+                                        <option value="retrait">Taux de retrait</option>
+                                    </select>
                                 </div>
                                 <div class="flex flex-col my-4">
                                     <label for="name" class="text-slate-400">Montant minimale</label>
-                                    <input type="text" name="name" id="name" class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant minimum">
+                                    <input type="text" name="min" id="min" required class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant minimum">
                                 </div>
-
                                 <div class="flex flex-col my-4">
                                     <label for="email" class="text-slate-400">Montant maximale</label>
-                                    <input type="email" name="email" id="email" class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant maximum">
+                                    <input type="text" name="max" id="max" required class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant maximum">
                                 </div>
                                 <div class="flex flex-col my-4">
                                     <label for="email" class="text-slate-400">Frais d'envoie</label>
-                                    <input type="email" name="email" id="email" class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant frais">
+                                    <input type="text" name="frais" id="frais" required class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez le montant frais">
                                 </div>
 
                                 <div class="my-4 flex items-center justify-end space-x-4">
-                                    <button class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Sign Up</button>
+                                    <button id="showAlertBtn" class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Enregistrer</button>
                                 </div>
                             </form>
                         </div>
@@ -85,5 +88,6 @@
                 </div>
             </div>
         </div>
+        
     </body>
 </html>

@@ -24,8 +24,6 @@ public class userDAO {
     }
 
     public int clientRegister(Client cli) {
-        boolean f = false;
-
         try {
             String sqlQuery = "INSERT INTO CLIENT( noms , age , sexe , email ) VALUES ( ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sqlQuery);

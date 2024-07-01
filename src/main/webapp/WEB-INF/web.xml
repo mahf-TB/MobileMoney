@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-        <servlet-name>clientServlet</servlet-name>
-        <servlet-class>com.Servlet.clientServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.Servlet.LoginServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>clientServlet</servlet-name>
-        <url-pattern>/clientServlet</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>ClientServlet</servlet-name>
+        <servlet-class>com.Servlet.ClientServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TauxTransaction</servlet-name>
+        <servlet-class>com.Servlet.TauxTransaction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateClient</servlet-name>
+        <servlet-class>com.Servlet.UpdateClient</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteClient</servlet-name>
+        <servlet-class>com.Servlet.DeleteClient</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTaux</servlet-name>
+        <servlet-class>com.Servlet.DeleteTaux</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientServlet</servlet-name>
+        <url-pattern>/clientServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TauxTransaction</servlet-name>
+        <url-pattern>/tauxTrans</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateClient</servlet-name>
+        <url-pattern>/updateClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteClient</servlet-name>
+        <url-pattern>/deleteClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTaux</servlet-name>
+        <url-pattern>/deleteTaux</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

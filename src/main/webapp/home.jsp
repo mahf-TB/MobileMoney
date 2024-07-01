@@ -18,9 +18,10 @@
 
                 <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
                     <div id="24h">
-                        <c:if test="${not empty sessionScope.data}">
+                        
+                        <c:if test="${not empty data}">
                             <h1 class="text-green-500 text-2xl bg-clifford">vous etes connecte et bien eregistrer!</h1>
-                            <p>${sessionScope.data.id_client}</p>
+                            <p>${data}</p>
                         </c:if>
                         <h1 class="font-bold py-4 uppercase">Last 24h Statistics</h1>
                         <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

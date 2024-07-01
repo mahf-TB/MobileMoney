@@ -12,7 +12,7 @@ public class Transaction {
     private int id;
     private String numEnvoyeur;
     private String numRecepteur;
-    private String type;
+    private String raison;
     private double montant;
     private String date;
 
@@ -46,12 +46,12 @@ public class Transaction {
         this.numRecepteur = numRecepteur;
     }
 
-    public String getType() {
-        return type;
+    public String getRaison() {
+        return raison;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRaison(String raison) {
+        this.raison = raison;
     }
 
     public double getMontant() {
@@ -72,6 +72,6 @@ public class Transaction {
     
     @Override
     public String toString() {
-        return "Transaction{" + "id=" + id + ", numEnvoyeur=" + numEnvoyeur + ", numRecepteur=" + numRecepteur + ", type=" + type + ", montant=" + montant + ", date=" + date + '}';
+        return "Transaction{" + "id=" + id + ", numEnvoyeur=" + numEnvoyeur + ", numRecepteur=" + numRecepteur + ", raison=" + raison + ", montant=" + montant + ", date=" + date + '}';
     }   
 }
