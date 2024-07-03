@@ -44,8 +44,8 @@
                         </svg>                              
                     </div>
                     <div>
-                        <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-teal-500">Historique</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Manage invoices</p>
+                        <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-teal-500">Taux de transaction</p>
+                        <p class="text-slate-400 text-sm hidden md:block">Envoyer et Retrait</p>
                     </div>
                     <div class="absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-teal-700 text-xs font-mono font-bold">23</div>
                 </div>
@@ -58,8 +58,8 @@
                         </svg>                              
                     </div>
                     <div>
-                        <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-teal-500">Contact</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Manage users</p>
+                        <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-teal-500">Gérer les clients</p>
+                        <p class="text-slate-400 text-sm hidden md:block">Liste client avec son compte</p>
                     </div>
 
                 </div>

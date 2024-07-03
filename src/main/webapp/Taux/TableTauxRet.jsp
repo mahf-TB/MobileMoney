@@ -12,7 +12,7 @@
                     type="button">Nouveaux Taux</button>
         </a>
     </div>
-    <div class="mt-2 ">
+    <div class="mt-2 overflow-auto h-[700px]">
         <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
                 <table class="w-full">

@@ -1,7 +1,8 @@
 
+
+<%@page import="com.Models.ClientCompte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,58 +20,55 @@
                     <div class="lg:flex items-center space-x-16">
                         <div class="w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px]  bg-black/60 to-white/5 mt-8 mx-auto px-16 py-8 rounded-lg">
 
-                            <h2 class="text-center text-2xl font-bold tracking-wide text-slate-200">Enregistrer votre compte</h2>
+                            <h2 class="text-center text-2xl font-bold tracking-wide text-slate-200">Modification d'un client </h2>
+                            <%
+                                ClientCompte clientCompte = (ClientCompte) request.getAttribute("clientCompte");
+                            %>
+                            <form action="updateClient" method="POST" class="my-8 text-sm">
+                                <input type="hidden" name="id_client" id="id_client" value="<%= clientCompte.getClient().getId()%>" readonly class="mt-2 p-2 border bg-gray-400 focus:outline-none focus:ring-0 focus:border-gray-400 rounded text-sm text-gray-900" placeholder="Entrez votre nom et prenom" required>
+                                <div class="flex flex-col my-4">
+                                    <label for="noms" class="text-slate-400">Noms<span class="text-red-500">*</span> </label>
+                                    <input type="text" name="noms" id="name" value="<%= clientCompte.getClient().getNoms()%>"
+                                           class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez votre nom et prenom" required>
+                                </div>
 
-                            <form action="clientServlet" method="POST" class="my-8 text-sm">
-                                <c:if test="${not empty id_client}">
-                                    <div class="flex flex-col my-4">
-                                        <input type="text" name="id_client" id="id_client" value="${id_client}" readonly class="mt-2 p-2 border bg-gray-400 focus:outline-none focus:ring-0 focus:border-gray-400 rounded text-sm text-gray-900" placeholder="Entrez votre nom et prenom" required>
-                                    </div>
-                                </c:if>
+                                <div class="flex flex-col my-4">
+                                    <label for="sexe" class="text-slate-400">sexe<span class="text-red-500">*</span> </label>
+                                    <select  name="sexe"  required      
+                                             class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+                                             placeholder=" " >
+                                        <option disabled selected value="h" class="text-sm text-white">Selectionner ici</option>
+                                        <option <c:if test="${clientCompte.client.sexe == 'Homme'}">selected</c:if> value="Homme">Homme</option>
+                                        <option <c:if test="${clientCompte.client.sexe == 'Femme'}">selected</c:if> value="Femme">Femme</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col my-4">
+                                    <label for="age" class="text-slate-400">Age</label>
+                                    <input type="text" name="age" id="age" value="<%= clientCompte.getClient().getAge()%>"
+                                           class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez votre ages">
+                                </div>
+                                <div class="flex flex-col my-4">
+                                    <label for="email" class="text-slate-400">Email<span class="text-red-500">*</span> </label>
+                                    <input type="email" name="email" id="email"  value="<%= clientCompte.getClient().getEmail()%>"
+                                           class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez votre adresse email" required>
+                                </div>
                                 <div class="flex flex-col my-4">
                                     <label for="numero" class="text-slate-400">Numéro de téléphone <span class="text-red-500">*</span> </label>
-                                    <input type="text" name="numero" id="numero" class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez votre numéro de telephone" required>
+                                    <input type="text" name="numero" id="numero" value="<%= clientCompte.getComptes().getNumero()%>"
+                                           class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Entrez votre numéro de telephone" required>
                                 </div>
                                 <div class="flex flex-col my-4">
                                     <label for="solde" class="text-slate-400">Solde</label>
-                                    <input type="number" name="solde" id="solde" class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Montant initialle">
-                                    <c:if test="${not empty errorSolde}">
-                                        <p class="text-red-500 text-xs  mb-1 font-helo">${errorSolde}</p>
-                                    </c:if>
+                                    <input type="number" name="solde" id="solde" value="<%= clientCompte.getComptes().getSolde()%>"
+                                           class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Montant initialle">                                   
 
-                                </div>
-                                <div class="flex flex-col my-4">
-                                    <label for="password" class="text-slate-400">Mot de passe</label>
-                                    <div x-data="{ show: false }" class="relative flex items-center mt-2">
-                                        <input :type=" show ? 'text': 'password' " name="password" id="password" class="flex-1 p-2 border pr-10 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Enter your password" type="password">
-                                        <button @click="show = !show" type="button" class="absolute right-2 bg-transparent flex items-center justify-center text-gray-700">
-                                            <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
-                                            <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                        </button>
-                                    </div>
-                                    <c:if test="${not empty errorPass}">
-                                        <p class="text-red-500 text-xs  mb-1 font-helo">${errorPass}</p>
-                                    </c:if>
-                                </div>
-                                <div class="flex flex-col my-4">
-                                    <label for="password_confirmation" class="text-slate-400">Mot de passe confirmation</label>
-                                    <div x-data="{ show: false }" class="relative flex items-center mt-2">
-                                        <input :type=" show ? 'text': 'password' " name="password_confirmation" id="password_confirmation" class="flex-1 p-2 pr-10 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900" placeholder="Enter your password again" type="password">
-                                        <button @click="show = !show" type="button" class="absolute right-2 bg-transparent flex items-center justify-center text-gray-700">
-                                            <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
-                                            <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                        </button>
-                                    </div>
-                                    <c:if test="${not empty errorPass}">
-                                        <p class="text-red-500 text-xs  mb-1 font-helo">${errorPass}</p>
-                                    </c:if>
                                 </div>
                                 <div class="flex items-center">
                                     <a href="listeClient.jsp" class="my-4 flex items-center justify-end space-x-4 mx-2">
                                         <div class="bg-red-600 hover:bg-red-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Annuler</div >
                                     </a>
                                     <div class="my-4 flex items-center justify-end space-x-4 mx-2">
-                                        <button  class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Enregistrer</button>
+                                        <button class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Modifier</button>
                                     </div>
                                 </div>
                             </form>

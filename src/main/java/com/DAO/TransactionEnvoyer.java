@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,68 +61,102 @@ public class TransactionEnvoyer {
         return listeEnvoyer;
     }
 
-    public boolean processTransaction(String numEnvoyeur, String numRecepteur, double montant, double montantEnvoyer, double montantRecu, String raison, boolean isFrais , int fraisTaux) {
-
+    public boolean processTransaction(String numEnvoyeur, String numRecepteur, double montant, double montantEnvoyer, double montantRecu, String raison, boolean isFrais, int fraisTaux) {
+        boolean f = false;
         try {
             // Début de la transaction
             conn.setAutoCommit(false);
 
-            // Déduire le montant de l'envoyeur
-            String sqlUpdateEnvoyeur = "UPDATE COMPTE SET solde = solde - ? WHERE numero = ?";
-            PreparedStatement pstEnvoyeur = conn.prepareStatement(sqlUpdateEnvoyeur);
-            pstEnvoyeur.setDouble(1, montantEnvoyer);
-            pstEnvoyeur.setString(2, numEnvoyeur);
-            pstEnvoyeur.executeUpdate();
-
-            // Ajouter le montant au receveur
-            String sqlUpdateRecepteur = "UPDATE COMPTE SET solde = solde + ? WHERE numero = ?";
-            PreparedStatement pstRecepteur = conn.prepareStatement(sqlUpdateRecepteur);
-            pstRecepteur.setDouble(1, montantRecu);
-            pstRecepteur.setString(2, numRecepteur);
-            pstRecepteur.executeUpdate();
-
             // Enregistrer la transaction
             String sqlInsertTransaction = "INSERT INTO Transaction (numEnvoyeur, numRecepteur, montant, raison, date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
-            PreparedStatement pstTransaction = conn.prepareStatement(sqlInsertTransaction);
+            PreparedStatement pstTransaction = conn.prepareStatement(sqlInsertTransaction, Statement.RETURN_GENERATED_KEYS);
             pstTransaction.setString(1, numEnvoyeur);
             pstTransaction.setString(2, numRecepteur);
             pstTransaction.setDouble(3, montant);
             pstTransaction.setString(4, raison);
-            int affectedRows = pstTransaction.executeUpdate();
-            
-            if (affectedRows > 0) {
-                ResultSet generatedKeys = pstTransaction.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    int transactionId = generatedKeys.getInt(1);
-                    String sqlEnvoyer = "INSERT INTO ENVOYER( id , is_frais_retrait, dateEnv, idtauxenv) VALUES (?, ? , CURRENT_TIMESTAMP , ? ) ";
-                    PreparedStatement pstEnvoie = conn.prepareStatement(sqlEnvoyer);
-                    pstEnvoie.setInt(1, transactionId);
-                    pstEnvoie.setBoolean(2, isFrais);
-                    pstEnvoie.setInt(3, fraisTaux);
-                    pstEnvoie.executeUpdate();
+            pstTransaction.executeUpdate();
+
+            ResultSet Keys = pstTransaction.getGeneratedKeys();
+            try {
+                int transactionId = 0;
+                while (Keys.next()) {
+                    transactionId = Keys.getInt(1);
                 }
+                String sqlEnvoyer = "INSERT INTO ENVOYER( id , is_frais_retrait, dateEnv, idtauxenv) VALUES (?, ? , CURRENT_TIMESTAMP , ? ) ";
+                PreparedStatement pstEnvoie = conn.prepareStatement(sqlEnvoyer);
+                pstEnvoie.setInt(1, transactionId);
+                pstEnvoie.setBoolean(2, isFrais);
+                pstEnvoie.setInt(3, fraisTaux);
+                int isEnvoyer = pstEnvoie.executeUpdate();
+                if (isEnvoyer > 0) {
+                    // Déduire le montant de l'envoyeur
+                    boolean isDeduire = deduireLeMontant(numEnvoyeur, montantEnvoyer);
+                    // Ajouter le montant au receveur
+                    boolean isAdd = ajouterLeMontant(numRecepteur, montantRecu);
+                    if (isAdd && isDeduire) {
+                        f = true;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            
-            // Commit de la transaction
-            conn.commit();
-            return true;
+
+            if (f) {
+                conn.commit();
+            } else {
+                conn.rollback();
+            }
 
         } catch (SQLException e) {
+            e.printStackTrace();
             try {
-                // Rollback de la transaction en cas d'erreur
                 conn.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            e.printStackTrace();
-            return false;
+            f = false;
         } finally {
             try {
                 conn.setAutoCommit(true);
-                conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return f;
+    }
+
+    public boolean deduireLeMontant(String numEnvoyeur, double montantEnvoyer) {
+        boolean f = false;
+        try {
+            String sqlUpdateEnvoyeur = "UPDATE COMPTE SET solde = solde - ? WHERE numero = ?";
+            PreparedStatement pstEnvoyeur = conn.prepareStatement(sqlUpdateEnvoyeur);
+            pstEnvoyeur.setDouble(1, montantEnvoyer);
+            pstEnvoyeur.setString(2, numEnvoyeur);
+            int res = pstEnvoyeur.executeUpdate();
+            if (res > 0) {
+                f = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return f;
+
+    }
+
+    public boolean ajouterLeMontant(String numRecu, double montantRecu) {
+        boolean f = false;
+        try {
+            String sqlUpdateRecepteur = "UPDATE COMPTE SET solde = solde + ? WHERE numero = ?";
+            PreparedStatement pstRecepteur = conn.prepareStatement(sqlUpdateRecepteur);
+            pstRecepteur.setDouble(1, montantRecu);
+            pstRecepteur.setString(2, numRecu);
+            int res = pstRecepteur.executeUpdate();
+            if (res > 0) {
+                f = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return f;
     }
 }

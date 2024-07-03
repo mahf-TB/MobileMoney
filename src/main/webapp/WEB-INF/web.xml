@@ -28,6 +28,19 @@
         <servlet-name>EnvoyerArgent</servlet-name>
         <servlet-class>com.Servlet.EnvoyerArgent</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteTransaction</servlet-name>
+        <servlet-class>com.Servlet.DeleteTransaction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RetirerTransaction</servlet-name>
+        <servlet-class>com.Servlet.RetirerTransaction</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DetailleTransaction</servlet-name>
+        <servlet-class>com.Servlet.DetailleTransaction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -55,6 +68,19 @@
     <servlet-mapping>
         <servlet-name>EnvoyerArgent</servlet-name>
         <url-pattern>/envoyerArgent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTransaction</servlet-name>
+        <url-pattern>/deleteTransaction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RetirerTransaction</servlet-name>
+        <url-pattern>/retirerTransaction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DetailleTransaction</servlet-name>
+        <url-pattern>/detailleTransaction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -2,7 +2,7 @@
 <%@page import="com.Models.EnvoyerTauxTrans"%>
 <%@page import="java.util.List"%>
 <%@page import="com.DAO.TransactionEnvoyer"%>
-<div id="last-users">
+<div id="last-users" class="">
     <div class="flex items-center justify-between">
         <h1 class="font-bold text-lg  uppercase">Liste des toutes Transaction envoyé</h1>
         <form action="updateClient" method="get">
@@ -14,9 +14,9 @@
                     id="showAlertBtn"   type="button">Envoyer de l'argent</button>
         </a>
     </div>
-    <div class="mt-2 ">
+    <div class="mt-2 overflow-auto h-[700px]">
         <div class="w-full overflow-hidden rounded-lg shadow-xs">
-            <div class="w-full overflow-x-auto">
+            <div class="w-full  ">
                 <table class="w-full">
                     <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700  dark:text-gray-400 bg-black/60">
@@ -60,7 +60,7 @@
                                         <input type="hidden" name="id" value="<%= cc.getTrans().getId()%>">
                                         <button type="submit" class="fa-solid fa-pen-to-square"></button>
                                     </form>
-                                    <form id="delete-form-<%= cc.getTrans().getId()%>" action="deleteClient" method="post">
+                                    <form id="delete-form-<%= cc.getTrans().getId()%>" action="deleteTransaction" method="post">
                                         <input type="hidden" name="id" value="<%= cc.getTrans().getId()%>">
                                         <button type="button" class="fa-solid fa-trash" onclick="confirmDelete(<%= cc.getTrans().getId()%>)"></button>
                                     </form>
@@ -117,3 +117,22 @@
         </div>
     </div>
 </div>
+
+                    
+<script>
+    function confirmDelete(Id) {
+        Swal.fire({
+            title: 'Êtes-vous sûr?',
+            text: "Vous ne pourrez pas revenir en arrière!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui, supprimez-le!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + Id).submit();
+            }
+        });
+    }
+</script>

@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class=" bg-gray-900 w-full min-h-screen text-slate-300 relative py-4">
-            <div class="grid grid-cols-12 mx-auto xl:mx-5 gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-12 max-w-8xl my-10 px-2">
+            <div class="h-[85vh] grid grid-cols-12 mx-auto xl:mx-5 gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-12 max-w-8xl my-10 px-2">
                 <%@include file="Components/header.jsp"%>
                 <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
                     <div id="last-users">
@@ -81,13 +81,18 @@
                                                 <td class="px-4 py-3 text-base text-center">
                                                     <div class="flex items-center justify-around">
                                                         <form action="updateClient" method="get">
-                                                            <input type="hidden" name="id" value="<%= cc.getClient().getId()%>">
+                                                            <input type="hidden" name="numero" value="<%= cc.getComptes().getNumero()%>">
                                                             <button type="submit" class="fa-solid fa-pen-to-square"></button>
                                                         </form>
-                                                        <form id="delete-form-<%= cc.getClient().getId() %>" action="deleteClient" method="post">
+                                                        <form id="delete-form-<%= cc.getClient().getId()%>" action="deleteClient" method="post">
                                                             <input type="hidden" name="id" value="<%= cc.getClient().getId()%>">
-                                                            <button type="button" class="fa-solid fa-trash" onclick="confirmDelete(<%= cc.getClient().getId() %>)"></button>
+                                                            <button type="button" class="fa-solid fa-trash" onclick="confirmDelete(<%= cc.getClient().getId()%>)"></button>
                                                         </form>
+                                                        <form action="detailleTransaction" method="get">
+                                                            <input type="hidden" name="numero" value="<%= cc.getComptes().getNumero()%>">
+                                                            <button type="submit" class="fa-solid fa-file"></button>
+                                                        </form>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -111,7 +116,7 @@
                                                         </svg>
                                                     </button>
                                                 </li>
-                                               
+
                                                 <li>
                                                     <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">2</button>
                                                 </li>
@@ -141,22 +146,22 @@
                 </div>
             </div>
         </div>
-    <script>
-        function confirmDelete(clientId) {
-            Swal.fire({
-                title: 'Êtes-vous sûr?',
-                text: "Vous ne pourrez pas revenir en arrière!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, supprimez-le!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + clientId).submit();
-                }
-            });
-        }
-    </script>
+        <script>
+            function confirmDelete(clientId) {
+                Swal.fire({
+                    title: 'Êtes-vous sûr?',
+                    text: "Vous ne pourrez pas revenir en arrière!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, supprimez-le!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form-' + clientId).submit();
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

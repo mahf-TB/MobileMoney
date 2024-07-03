@@ -4,6 +4,8 @@
  */
 package com.Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author macbookpro
@@ -14,7 +16,7 @@ public class Transaction {
     private String numRecepteur;
     private String raison;
     private double montant;
-    private String date;
+    private Date date;
 
     
     public Transaction() {
@@ -62,11 +64,11 @@ public class Transaction {
         this.montant = montant;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
     

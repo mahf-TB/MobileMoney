@@ -61,6 +61,31 @@ public class ClientDAO {
         return clientList;
     }
 
+    public ClientCompte ClientsWithAccounts(String numero) throws SQLException {
+        String sqlQuery = "SELECT CLIENT.id, numero, noms, age, sexe, email, solde, isActive FROM COMPTE JOIN CLIENT ON id_client = CLIENT.id where numero = ?";
+        PreparedStatement pstt = conn.prepareStatement(sqlQuery);
+        pstt.setString(1, numero);
+        ResultSet rs = pstt.executeQuery();
+        while (rs.next()) {
+            Client client = new Client();
+            client.setId(rs.getInt("id"));
+            client.setNoms(rs.getString("noms"));
+            client.setAge(rs.getString("age"));
+            client.setSexe(rs.getString("sexe"));
+            client.setEmail(rs.getString("email"));
+
+            Compte compte = new Compte();
+            compte.setNumero(rs.getString("numero"));
+            compte.setIsActive(rs.getBoolean("isActive"));
+            compte.setSolde(rs.getDouble("solde"));
+            compte.setId_client(client.getId());
+
+            ClientCompte cliCompte = new ClientCompte(client, compte);
+            return cliCompte;
+        }
+        return null;
+    }
+
     public boolean updateClientAndAccounts(Client client, Compte comptes) {
         boolean updated = false;
         String updateClientSQL = "UPDATE CLIENT SET noms = ?, age = ?, sexe = ?, email = ? WHERE id = ?";
@@ -114,14 +139,14 @@ public class ClientDAO {
             deleteClientPst.setInt(1, clientId);
             int clientRowsAffected = deleteClientPst.executeUpdate();
             if (clientRowsAffected > 0) {
-                isDeleted = true;  
+                isDeleted = true;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return isDeleted;  
+        return isDeleted;
     }
 
 }

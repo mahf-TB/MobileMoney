@@ -1,4 +1,5 @@
 
+<%@page import="com.DAO.TransactionDAO"%>
 <%@ page import="java.sql.*, java.lang.System.*, com.DB.DBConnect" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
@@ -18,11 +19,13 @@
 
                 <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
                     <div id="24h">
-                        
-                        <c:if test="${not empty data}">
-                            <h1 class="text-green-500 text-2xl bg-clifford">vous etes connecte et bien eregistrer!</h1>
-                            <p>${data}</p>
-                        </c:if>
+
+                        <%
+                            TransactionDAO daoRec = new TransactionDAO();
+                            double total = daoRec.allRecette();
+                            int client = daoRec.allClient(); 
+                            int trans = daoRec.allTrans(); 
+                        %>
                         <h1 class="font-bold py-4 uppercase">Last 24h Statistics</h1>
                         <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div class="bg-black/60 to-white/5 p-6 rounded-lg">
@@ -33,9 +36,9 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-indigo-300 text-sm font-medium uppercase leading-4">Users</p>
+                                        <p class="text-indigo-300 text-sm font-medium uppercase leading-4">Clients</p>
                                         <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                            <span>+28</span>
+                                            <span><%= client%></span>
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -55,9 +58,9 @@
 
                                     </div>
                                     <div>
-                                        <p class="text-teal-300 text-sm font-medium uppercase leading-4">Income</p>
+                                        <p class="text-teal-300 text-sm font-medium uppercase leading-4">Recette Total</p>
                                         <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                            <span>$2,873.88</span>
+                                            <span>Ar <%= total%></span>
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -79,7 +82,7 @@
                                     <div>
                                         <p class="text-blue-300 text-sm font-medium uppercase leading-4">Invoices</p>
                                         <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                            <span>+79</span>
+                                            <span><%= trans%></span>
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -92,119 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="last-incomes">
-                        <h1 class="font-bold py-4 uppercase">Last 24h incomes</h1>
-                        <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                            <div class="bg-black/60 to-white/5 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div class="text-3xl p-4">💰</div>
-                                    <div class="p-2">
-                                        <p class="text-xl font-bold">348$</p>
-                                        <p class="text-gray-500 font-medium">Amber Gates</p>
-                                        <p class="text-gray-500 text-sm">24 Nov 2022</p>
-                                    </div>
-                                </div>
-                                <div class="border-t border-white/5 p-4">
-                                    <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                        </svg>
-                                        <span>Info</span>                                      
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="bg-black/60 to-white/5 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div class="text-3xl p-4">💰</div>
-                                    <div class="p-2">
-                                        <p class="text-xl font-bold">68$</p>
-                                        <p class="text-gray-500 font-medium">Maia Kipper</p>
-                                        <p class="text-gray-500 text-sm">23 Nov 2022</p>
-                                    </div>
-                                </div>
-                                <div class="border-t border-white/5 p-4">
-                                    <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                        </svg>
-                                        <span>Info</span>                                      
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="bg-black/60 to-white/5 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div class="text-3xl p-4">💰</div>
-                                    <div class="p-2">
-                                        <p class="text-xl font-bold">12$</p>
-                                        <p class="text-gray-500 font-medium">Oprah Milles</p>
-                                        <p class="text-gray-500 text-sm">23 Nov 2022</p>
-                                    </div>
-                                </div>
-                                <div class="border-t border-white/5 p-4">
-                                    <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                        </svg>
-                                        <span>Info</span>                                      
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="bg-black/60 to-white/5 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div class="text-3xl p-4">💰</div>
-                                    <div class="p-2">
-                                        <p class="text-xl font-bold">105$</p>
-                                        <p class="text-gray-500 font-medium">Jonny Nite</p>
-                                        <p class="text-gray-500 text-sm">23 Nov 2022</p>
-                                    </div>
-                                </div>
-                                <div class="border-t border-white/5 p-4">
-                                    <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                        </svg>
-                                        <span>Info</span>                                      
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="bg-black/60 to-white/5 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div class="text-3xl p-4">💰</div>
-                                    <div class="p-2">
-                                        <p class="text-xl font-bold">52$</p>
-                                        <p class="text-gray-500 font-medium">Megane Baile</p>
-                                        <p class="text-gray-500 text-sm">22 Nov 2022</p>
-                                    </div>
-                                </div>
-                                <div class="border-t border-white/5 p-4">
-                                    <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                        </svg>
-                                        <span>Info</span>                                      
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="bg-black/60 to-white/5 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div class="text-3xl p-4">💰</div>
-                                    <div class="p-2">
-                                        <p class="text-xl font-bold">28$</p>
-                                        <p class="text-gray-500 font-medium">Tony Ankel</p>
-                                        <p class="text-gray-500 text-sm">22 Nov 2022</p>
-                                    </div>
-                                </div>
-                                <div class="border-t border-white/5 p-4">
-                                    <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                        </svg>
-                                        <span>Info</span>                                      
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
             </div>

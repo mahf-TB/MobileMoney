@@ -5,24 +5,22 @@
 <div id="last-users">
     <div class="flex items-center justify-between">
         <h1 class="font-bold text-xl  uppercase">Liste des toutes transaction retrait</h1>
-        <a href="ajouterClient.jsp">
+        <a href="eretirerArgent.jsp">
             <button class="bg-blue-500 bg-gray-100  text-gray-700 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
                     id="showAlertBtn"   type="button">Retirer de l'argent</button>
         </a>
     </div>
-    <div class="mt-2 ">
+    <div class="mt-2 overflow-auto h-[700px]">
         <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
                 <table class="w-full">
                     <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700  dark:text-gray-400 bg-black/60">
                             <th class="px-4 py-3">id</th>
-                            <th class="px-4 py-3">Numéro Envoyeur</th>
-                            <th class="px-4 py-3">Numéro Récepteur</th>
+                            <th class="px-4 py-3">Numéro Téléphone</th>
                             <th class="px-4 py-3">Montant</th>
                             <th class="px-4 py-3">Raison</th>
-                            <th class="px-4 py-3">avec Frais</th>
-                            <th class="px-4 py-3">Date d'envoie</th>
+                            <th class="px-4 py-3">Date de retrait</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
@@ -36,10 +34,8 @@
 
                             <td class="px-4 py-3 text-sm"><%=cc.getTrans().getId()%></td>
                             <td class="px-4 py-3 text-sm"><%=cc.getTrans().getNumEnvoyeur()%></td>
-                            <td class="px-4 py-3 text-sm"><%=cc.getTrans().getNumRecepteur()%></td>
                             <td class="px-4 py-3 text-sm"><%=cc.getTrans().getMontant()%></td>
                             <td class="px-4 py-3 text-sm"><%=cc.getTrans().getRaison()%></td>
-                            <td class="px-4 py-3 text-sm"><%=cc.getTaux().getFraisRet()%></td>
                             <td class="px-4 py-3 text-sm"><%=cc.getRetrait().getDateRet()%></td>
                             <td class="px-4 py-3 text-base text-center">
                                 <div class="flex items-center justify-around">
@@ -47,7 +43,7 @@
                                         <input type="hidden" name="id" value="<%= cc.getTrans().getId()%>">
                                         <button type="submit" class="fa-solid fa-pen-to-square"></button>
                                     </form>
-                                    <form id="delete-form-<%= cc.getTrans().getId()%>" action="deleteClient" method="post">
+                                    <form id="delete-form-<%= cc.getTrans().getId()%>" action="deleteTransaction" method="post">
                                         <input type="hidden" name="id" value="<%= cc.getTrans().getId()%>">
                                         <button type="button" class="fa-solid fa-trash" onclick="confirmDelete(<%= cc.getTrans().getId()%>)"></button>
                                     </form>
@@ -105,3 +101,21 @@
         </div>
     </div>
 </div>
+            <script>
+    function confirmDelete(Id) {
+        Swal.fire({
+            title: 'Êtes-vous sûr?',
+            text: "Vous ne pourrez pas revenir en arrière!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui, supprimez-le!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + Id).submit();
+            }
+        });
+    }
+</script>
+

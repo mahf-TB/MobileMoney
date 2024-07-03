@@ -5,6 +5,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.DAO.ClientDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,8 +24,11 @@
                         <div class="w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px]  bg-black/60 to-white/5 mt-8 mx-auto px-16 py-8 rounded-lg">
 
                             <h2 class="text-center text-2xl font-bold tracking-wide text-slate-200 uppercase">Formulaire d'envoyer de l'argent</h2>
+                            <c:if test="${not empty errorTrans}">
+                                <p class="text-red-500 bg-red-100 rounded-md text-lg text-center py-2 px-auto  mb-1 font-helo">${errorTrans}</p>
+                            </c:if>
 
-                            <form action="envoyerArgent" method="POST" class="my-8 text-sm">
+                            <form id="form-trans"  action="envoyerArgent" method="POST" class="my-8 text-sm">
                                 <div class="flex flex-col my-4">
                                     <label for="numEnvoyeur" class="text-slate-400">Numéro de l'envoyeur<span class="text-red-500">*</span> </label>
                                     <select  name="numEnvoyeur"  required      
@@ -41,6 +45,9 @@
                                             }
                                         %>
                                     </select>
+                                    <c:if test="${not empty errorNum}">
+                                        <p class="text-red-500 text-xs  mb-1 font-helo">${errorNum}</p>
+                                    </c:if>
                                 </div>
                                 <div class="flex flex-col my-4">
                                     <label for="numRecepteur" class="text-slate-400">Numéro du recepteur<span class="text-red-500">*</span> </label>
@@ -56,6 +63,9 @@
                                             }
                                         %>
                                     </select>
+                                    <c:if test="${not empty errorNum}">
+                                        <p class="text-red-500 text-xs  mb-1 font-helo">${errorNum}</p>
+                                    </c:if>
                                 </div>
                                 <div class="flex flex-col my-4">
                                     <label for="montant" class="text-slate-400">Solde</label>
@@ -72,11 +82,11 @@
                                     <label for="isFrais" class="ml-2 block text-base text-gray-200">Envoyer avec frais de retrait</label>
                                 </div>
                                 <div class="flex items-center">
-                                    <a href="listeClient.jsp" class="my-4 flex items-center justify-end space-x-4 mx-2">
+                                    <a href="listeTransaction.jsp" class="my-4 flex items-center justify-end space-x-4 mx-2">
                                         <div class="bg-red-600 hover:bg-red-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Annuler</div >
                                     </a>
                                     <div class="my-4 flex items-center justify-end space-x-4 mx-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Envoyer</button>
+                                        <button type="button"  onclick="confirmDelete()" class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">Envoyer</button>
                                     </div>
                                 </div>
                             </form>
@@ -111,5 +121,22 @@
                 </div>
             </div>
         </div>
+        <script>
+            function confirmDelete() {
+                Swal.fire({
+                    title: 'Êtes-vous sûr d\'envoyer cette argents?',
+                    text: "Vous ne pourrez pas revenir en arrière!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, envoie-le!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('form-trans').submit();
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
