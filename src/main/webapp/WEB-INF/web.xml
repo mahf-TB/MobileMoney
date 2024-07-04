@@ -36,10 +36,13 @@
         <servlet-name>RetirerTransaction</servlet-name>
         <servlet-class>com.Servlet.RetirerTransaction</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>DetailleTransaction</servlet-name>
         <servlet-class>com.Servlet.DetailleTransaction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RechercheClient</servlet-name>
+        <servlet-class>com.Servlet.RechercheClient</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -77,10 +80,13 @@
         <servlet-name>RetirerTransaction</servlet-name>
         <url-pattern>/retirerTransaction</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>DetailleTransaction</servlet-name>
         <url-pattern>/detailleTransaction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RechercheClient</servlet-name>
+        <url-pattern>/rechercheClient</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -80,7 +80,7 @@
 
                                     </div>
                                     <div>
-                                        <p class="text-blue-300 text-sm font-medium uppercase leading-4">Invoices</p>
+                                        <p class="text-blue-300 text-sm font-medium uppercase leading-4">Transactions</p>
                                         <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
                                             <span><%= trans%></span>
                                             <span>

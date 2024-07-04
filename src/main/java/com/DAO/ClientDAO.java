@@ -61,6 +61,42 @@ public class ClientDAO {
         return clientList;
     }
 
+    public List<ClientCompte> searchClientsWithAccounts(String query) {
+        List<ClientCompte> clientList = new ArrayList<>();
+
+        try {
+            String sqlQuery = "SELECT CLIENT.id, numero, noms, age, sexe, email, solde, isActive FROM COMPTE JOIN CLIENT ON id_client = CLIENT.id WHERE CLIENT.noms LIKE ? OR CLIENT.email LIKE ? OR COMPTE.numero LIKE ? ";
+            PreparedStatement pstt = conn.prepareStatement(sqlQuery);
+            pstt.setString(1, "%" + query + "%");
+            pstt.setString(2, "%" + query + "%");
+             pstt.setString(3, "%" + query + "%");
+            ResultSet res = pstt.executeQuery();
+
+            while (res.next()) {
+                int clientId = res.getInt("id");
+
+                Client cli = new Client();
+                cli.setId(clientId);
+                cli.setNoms(res.getString("noms"));
+                cli.setEmail(res.getString("email"));
+                cli.setSexe(res.getString("sexe"));
+                cli.setAge(res.getString("age"));
+
+                Compte compte = new Compte();
+                compte.setId(res.getInt("id"));
+                compte.setNumero(res.getString("numero"));
+                compte.setSolde(res.getDouble("solde"));
+                compte.setIsActive(res.getBoolean("isActive"));
+
+                ClientCompte cliCompte = new ClientCompte(cli, compte);
+                clientList.add(cliCompte);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clientList;
+    }
+
     public ClientCompte ClientsWithAccounts(String numero) throws SQLException {
         String sqlQuery = "SELECT CLIENT.id, numero, noms, age, sexe, email, solde, isActive FROM COMPTE JOIN CLIENT ON id_client = CLIENT.id where numero = ?";
         PreparedStatement pstt = conn.prepareStatement(sqlQuery);

@@ -18,7 +18,15 @@
         <div class=" bg-gray-900 w-full min-h-screen text-slate-300 relative py-4">
             <div class="h-[85vh] grid grid-cols-12 mx-auto xl:mx-5 gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-12 max-w-8xl my-10 px-2">
                 <%@include file="Components/header.jsp"%>
+
                 <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
+
+                    <form action="rechercheClient" method="get" id="formSearch">
+                        <div class="flex w-[30rem] rounded bg-white">
+                            <input type="search" id="searchInput" name="search" class="w-full border-none bg-transparent px-4 py-1 text-gray-900 focus:outline-none" placeholder="Recherche..." x-model="search" />
+                            <button type="submit" class="m-1 flex items-center rounded px-4 py-2  text-gray-100 bg-gray-500 " ><i class="fa-solid fa-magnifying-glass mr-2"></i><span class="uppercase"> Recherche</span></button>
+                        </div>
+                    </form>
                     <div id="last-users">
                         <div class="flex items-center justify-between">
                             <h1 class="font-bold text-xl  uppercase">Liste des toutes client en contact</h1>
@@ -44,8 +52,15 @@
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-700 bg-gray-800">
                                             <%
-                                                ClientDAO dao = new ClientDAO();
-                                                List<ClientCompte> clientsList = dao.getAllClientsWithAccounts();
+                                                List<ClientCompte> clientCompte = (List<ClientCompte>) request.getAttribute("clientCompte");
+                                                List<ClientCompte> clientsList = null;
+                                                if (clientCompte != null) {
+                                                    clientsList = clientCompte;
+                                                } else {
+                                                    ClientDAO dao = new ClientDAO();
+                                                    clientsList = dao.getAllClientsWithAccounts();
+                                                }
+
                                                 for (ClientCompte cc : clientsList) {
                                             %>
                                             <tr class="bg-gray-800 hover:bg-gray-900  text-gray-700 dark:text-gray-400">
@@ -146,7 +161,10 @@
                 </div>
             </div>
         </div>
+
+
         <script>
+ 
             function confirmDelete(clientId) {
                 Swal.fire({
                     title: 'Êtes-vous sûr?',
