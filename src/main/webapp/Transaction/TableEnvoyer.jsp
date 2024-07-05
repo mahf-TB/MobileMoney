@@ -5,9 +5,9 @@
 <div id="last-users" class="">
     <div class="flex items-center justify-between">
         <h1 class="font-bold text-lg  uppercase">Liste des toutes Transaction envoyé</h1>
-        <form action="updateClient" method="get">
-            <input type="date" name="date" class="text-black">
-            <button type="submit" class="fa-solid fa-pen-to-square bg-gray-200 text-black px-2 py-1 rounder-lg"></button>
+        <form action="rechercheDate" method="get" class="flex items-center justify-center">
+            <input type="date" name="date" class="text-black px-3 py-1 rounded-l-md mr-0">
+            <button type="submit" class="fa-solid fa-magnifying-glass bg-gray-200 text-base text-black ml-0 px-2 py-1 rounded-r-md"></button>
         </form>
         <a href="envoyerArgent.jsp">
             <button class="bg-blue-500 bg-gray-100  text-gray-700 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
@@ -32,8 +32,14 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-700 bg-gray-800">
                         <%
-                            TransactionEnvoyer dao1 = new TransactionEnvoyer();
-                            List<EnvoyerTauxTrans> envoyerList = dao1.getAllTransactionEnvoyer();
+                            List<EnvoyerTauxTrans> listeDate = (List<EnvoyerTauxTrans>) request.getAttribute("liste");
+                            List<EnvoyerTauxTrans> envoyerList = null;
+                            if (listeDate != null) {
+                                envoyerList = listeDate;
+                            } else {
+                                TransactionEnvoyer dao1 = new TransactionEnvoyer();
+                                envoyerList = dao1.getAllTransactionEnvoyer();
+                            }
                             for (EnvoyerTauxTrans cc : envoyerList) {
                         %>
                         <tr class="bg-gray-800 hover:bg-gray-900  text-gray-700 dark:text-gray-400">
@@ -118,7 +124,7 @@
     </div>
 </div>
 
-                    
+
 <script>
     function confirmDelete(Id) {
         Swal.fire({

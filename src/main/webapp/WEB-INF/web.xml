@@ -44,6 +44,10 @@
         <servlet-name>RechercheClient</servlet-name>
         <servlet-class>com.Servlet.RechercheClient</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RechercheDate</servlet-name>
+        <servlet-class>com.Servlet.RechercheDate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>RechercheClient</servlet-name>
         <url-pattern>/rechercheClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RechercheDate</servlet-name>
+        <url-pattern>/rechercheDate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

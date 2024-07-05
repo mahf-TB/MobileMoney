@@ -1,5 +1,5 @@
 <div id="menu" class="bg-white/10 col-span-3 rounded-lg p-4 ">
-    <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-teal-700 via-teal-400 to-transparent bg-clip-text text-transparent">Dashboard<span class="text-indigo-400">.</span></h1>
+    <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-teal-700 via-teal-400 to-transparent bg-clip-text text-transparent">FlyMoney<span class="text-teal-400">.</span></h1>
     <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
     <a href="#" class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
         <div>
@@ -7,7 +7,7 @@
         </div>
         <div>
             <p class="font-medium group-hover:text-teal-500 leading-4">Mahefa Bienvenu</p>
-            <span class="text-xs text-slate-400">Developper Full-stack</span>
+            <span class="text-xs text-slate-400">PDG Operateur</span>
         </div>
     </a>
     <hr class="my-2 border-slate-700">

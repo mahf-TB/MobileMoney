@@ -6,6 +6,7 @@ import com.Models.EnvoyerTauxTrans;
 import com.Models.Tauxenv;
 import com.Models.Transaction;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -158,5 +159,41 @@ public class TransactionEnvoyer {
             e.printStackTrace();
         }
         return f;
+    }
+
+    public List<EnvoyerTauxTrans> searchTransactionEnvoyer(Date date) {
+        List<EnvoyerTauxTrans> listeEnvoyer = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT * FROM ENVOYER En JOIN TRANSACTION Tr ON Tr.id = En.id LEFT JOIN TAUXENV TEn ON TEn.id = En.idtauxenv WHERE dateEnv LIKE ?";
+            PreparedStatement pstt = conn.prepareStatement(sqlQuery);
+            pstt.setString(1, date + "%");
+            ResultSet res = pstt.executeQuery();
+
+            while (res.next()) {
+                int Id = res.getInt("id");
+
+                Transaction trans = new Transaction();
+                trans.setId(Id);
+                trans.setNumEnvoyeur(res.getString("numEnvoyeur"));
+                trans.setNumRecepteur(res.getString("numRecepteur"));
+                trans.setMontant(res.getDouble("montant"));
+                trans.setRaison(res.getString("raison"));
+
+                Envoyer env = new Envoyer();
+                env.setDateEnv(res.getDate("dateEnv"));
+                env.setIs_frais_retrait(res.getBoolean("is_frais_retrait"));
+
+                Tauxenv taux = new Tauxenv();
+
+                taux.setId(res.getInt("idtauxenv"));
+                taux.setFraisEnv(res.getDouble("fraisEnv"));
+
+                EnvoyerTauxTrans transEnv = new EnvoyerTauxTrans(env, trans, taux);
+                listeEnvoyer.add(transEnv);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeEnvoyer;
     }
 }

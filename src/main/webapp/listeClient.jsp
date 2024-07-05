@@ -21,17 +21,21 @@
 
                 <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
 
-                    <form action="rechercheClient" method="get" id="formSearch">
-                        <div class="flex w-[30rem] rounded bg-white">
-                            <input type="search" id="searchInput" name="search" class="w-full border-none bg-transparent px-4 py-1 text-gray-900 focus:outline-none" placeholder="Recherche..." x-model="search" />
-                            <button type="submit" class="m-1 flex items-center rounded px-4 py-2  text-gray-100 bg-gray-500 " ><i class="fa-solid fa-magnifying-glass mr-2"></i><span class="uppercase"> Recherche</span></button>
-                        </div>
-                    </form>
+
+                    <h1 class="font-bold text-xl  uppercase">Liste des toutes client en contact</h1>
+
                     <div id="last-users">
-                        <div class="flex items-center justify-between">
-                            <h1 class="font-bold text-xl  uppercase">Liste des toutes client en contact</h1>
+                        <div class="flex items-end justify-between">
+                            
+                                <form action="rechercheClient" method="get" id="formSearch">
+                                    <div class="flex w-[30rem] rounded bg-white">
+                                        <input type="search" id="searchInput" name="search" class="w-full border-none bg-transparent px-4 py-1 text-gray-900 focus:outline-none" placeholder="Recherche..." x-model="search" />
+                                        <button type="submit" class="m-1 flex items-center rounded px-4 py-1  text-gray-100 bg-gray-500 " ><i class="fa-solid fa-magnifying-glass mr-2"></i><span class="uppercase"> Recherche</span></button>
+                                    </div>
+                                </form>                              
+                            
                             <a href="ajouterClient.jsp">
-                                <button class="bg-blue-500 bg-gray-100  text-gray-700 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
+                                <button class="bg-blue-500 bg-gray-100  text-gray-700 text-xs font-bold uppercase px-4 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
                                         id="showAlertBtn"   type="button">Ajouter un client</button>
                             </a>
                         </div>
@@ -164,7 +168,7 @@
 
 
         <script>
- 
+
             function confirmDelete(clientId) {
                 Swal.fire({
                     title: 'Êtes-vous sûr?',

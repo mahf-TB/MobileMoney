@@ -5,6 +5,10 @@
 <div id="last-users">
     <div class="flex items-center justify-between">
         <h1 class="font-bold text-xl  uppercase">Liste des toutes transaction retrait</h1>
+        <form action="rechercheDate" method="get" class="flex items-center justify-center">
+            <input type="date" name="dateRetraite" class="text-black px-3 py-1 rounded-l-md mr-0">
+            <button type="submit" class="fa-solid fa-magnifying-glass bg-gray-200 text-base text-black ml-0 px-2 py-1 rounded-r-md"></button>
+        </form>
         <a href="eretirerArgent.jsp">
             <button class="bg-blue-500 bg-gray-100  text-gray-700 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
                     id="showAlertBtn"   type="button">Retirer de l'argent</button>
@@ -101,7 +105,7 @@
         </div>
     </div>
 </div>
-            <script>
+<script>
     function confirmDelete(Id) {
         Swal.fire({
             title: 'Êtes-vous sûr?',
