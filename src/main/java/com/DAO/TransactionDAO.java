@@ -30,7 +30,7 @@ public class TransactionDAO {
 
     public List<Transaction> getTransactionsForMonthsDebitsCredit(String numero) {
         List<Transaction> debits = new ArrayList<>();
-        String sql = "SELECT * FROM `TRANSACTION` WHERE ((numRecepteur IS NULL AND numEnvoyeur= ? )OR numEnvoyeur = ? OR numRecepteur = ?) AND date >= DATE_SUB(CURRENT_DATE, INTERVAL 3 MONTH) ORDER BY date;";
+        String sql = "SELECT * FROM `TRANSACTION` WHERE ((numRecepteur IS NULL AND numEnvoyeur= ? )OR numEnvoyeur = ? OR numRecepteur = ?) AND date >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) ORDER BY date;";
         try {
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, numero);

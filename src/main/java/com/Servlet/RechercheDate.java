@@ -24,7 +24,7 @@ public class RechercheDate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Date date = Date.valueOf(req.getParameter("date"));
-        Date dateRet = Date.valueOf(req.getParameter("dateRetraite"));
+        //Date dateRet = Date.valueOf(req.getParameter("dateRetraite"));
         
         TransactionEnvoyer dao = new TransactionEnvoyer();
         List<EnvoyerTauxTrans> dataEnvoyer = dao.searchTransactionEnvoyer(date);
